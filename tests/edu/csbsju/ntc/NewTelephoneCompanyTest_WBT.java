@@ -8,10 +8,7 @@ import org.junit.Test;
 public class NewTelephoneCompanyTest_WBT {
 	private int startTime;
 	private int duration;
-	private static final double FED_TAX = 0.04;
-	private static final double COST = 40;
-	private static final double HOURS_DISCOUNT = 0.5;
-	private static final double DURATION_DISCOUNT = 0.15;
+
 	
 	  private NewTelephoneCompany ntc;
 	  
@@ -22,63 +19,67 @@ public class NewTelephoneCompanyTest_WBT {
 	  
 	@Test //expects UnsupportedOperationException
 	public void testFailsInvalidStartTime() {
-		int expStart = -5;
-		int expDuration = 10;
-		ntc.setStartTime(expStart);
-	    int result = ntc.getStartTime();
-	    assertEquals("Start time " + expStart + " was inputted, but it is invalid",expStart, result);
+		double expResult = -1;
+		int start = -5;
+		int duration = 10;
+		ntc.setStartTime(start);
+		ntc.setDuration(duration);
+	    double result = ntc.computeCharge();
+	    assertEquals("Charge should be " + expResult + " but recieved invalid start time",expResult, result);
 	  }
 	
 	@Test //expects UnsupportedOperationException
 	public void testFailsInvalidDuration() {
-		int expStart = 1800;
-		int expDuration = 10;
-		ntc.setDuration(expStart);
-	    int result = ntc.getDuration();
-	    assertEquals("Duration " + expStart + " was inputted, but it is invalid",expStart, result);
+		double expResult = -1;
+		int start = 1800;
+		int duration = 10;
+		ntc.setStart(start);
+		ntc.setDuration(duration);
+	    double result = ntc.computeCharge();
+	    assertEquals("Charge should be " + expResult + " but recieved invalid duration",expResult, result);
 	  }
 	
 	@Test
 	public void testDiscStartimeAndDuration() {
-		int expStart = 500;
-		int expDuration = 100;
-		ntc.setStartTime(expStart);
-		ntc.setDuration(expDuration);
-	    int result = ntc.getStartTime();
-	    int result2 = ntc.getStartTime();
-	    assertEquals("Start time is " + expStart,expStart, result);
-	    assertEquals("Duration is " + expDuration,expDuration, result2);
+		double expResult = 1768.0;
+		int start = 500;
+		int duration = 100;
+		ntc.setStartTime(start);
+		ntc.setDuration(duration);
+		double result = ntc.computeCharge();
+	    assertEquals("Charge should be " + expResult + " with an discounted start time and duration",expResult, result);
 
 	  }
 	
 	@Test
 	public void testDiscStarttime() {
-		int expStart = 0;
-		int expDuration = 60;
-		ntc.setStartTime(expStart);
-	    int result = ntc.getStartTime();
-	    assertEquals("Hours is " + expStart,expStart, result);
+		double expResult = 1248.0;
+		int start = 0;
+		int duration = 60;
+		ntc.setStartTime(start);
+		ntc.setDuration(duration);
+	    double result = ntc.computeCharge;
+	    assertEquals("Charge should be " + expResult + " with a dicounted start time",expResult, result);
 	  }
 	
 	@Test
 	public void testDiscDuration() {
-		int expStart = 800;
-		int expDuration = 65;
-		ntc.setDuration(expDuration);
-	    int result = ntc.getStartTime();
-	    assertEquals("Duration is " + expDuration,expDuration, result);
+		double expResult = 2298.4
+		int start = 800;
+		int duration = 65;
+		ntc.setDuration(duration);
+	    double result = ntc.computeCharge();
+	    assertEquals("Charge should be " + expResult + " with a discounted duration",expResult, result);
 	  }
 	
 	@Test
 	public void testNoDiscounts() {
-		int expStart = 1000;
+		double expResult = 1664.0;
+		int start = 1000;
 		int expDuration = 40;
 		ntc.setStartTime(expStart);
-		ntc.setDuration(expDuration);
-	    int result = ntc.getStartTime();
-	    int result2 = ntc.getDuration();
-	    assertEquals("Start time is " + expStart,expStart, result);
-	    assertEquals("Duration is " + expDuration,expDuration, result2);
+	    double result = ntc.getStartTime();
+	    assertEquals("harge should be " + expResult + " with no discounts",expResult, result);
 
 	}
 }
